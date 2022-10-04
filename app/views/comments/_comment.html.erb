@@ -1,0 +1,17 @@
+<% obj.each do |comment| %>
+ 
+<div style="display:flex;flex-direction:row">
+
+<%= image_tag(comment.user.image,style:"width:40px; height:40px;border-radius: 50%;") %>
+<p style="margin-left:20px"><%= comment.comment %>
+    
+Commented by  User
+ <%= comment.user.user_name %>
+</p>
+</div>
+    <br>
+    
+    
+    
+    
+<% end %>

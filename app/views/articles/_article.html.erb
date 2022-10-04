@@ -1,0 +1,55 @@
+<% obj.each do |article| %>
+
+    <div class="row">
+    
+    <div class="col-xs-8 col-xs-offset-2">
+    
+    <div class="well well-lg">
+    
+    <div class="article-title">
+    
+    <%= link_to article.title, user_group_article_path(current_user,article) %>
+    
+    </div>
+    
+    <div class="article-body">
+    
+    <%= truncate(article.description, length: 100) %>
+    <small>Created by: <%= article.user.user_name if article.user%>,
+
+<%= time_ago_in_words(article.created_at) %> ago,
+
+last updated: <%= time_ago_in_words(article.updated_at) %> ago</small>
+     
+    </div>
+    
+    <div class="article-actions">
+<%# if logged_in? && (current_user == article.user || current_user.admin? ) %>
+<%# if current_user && (current_user == article.user ||   (current_user.has_role?:admin) )  %>
+
+   
+    <div class="display:flex, flex-direction:row">
+    <%= link_to "View this articles", user_group_article_path(current_user,article.group,article), class: "btn btn-xs btn-success" %> 
+    <% if can? :update, article%>
+    <%= link_to "Edit this article", 
+     edit_user_group_article_path(current_user,article.group,article), class: "btn btn-xs btn-primary" %>
+    <% end %>
+  <%= link_to "Delete this article", user_group_article_path(current_user,article.group,article),turbo_method: :delete,
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+              class:"effect effect-5" %>
+    <% if can? :destroy, article%>
+    <%= button_to "Delete this article", user_group_article_path(current_user,article.group,article), method: :delete,
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }  ,class: "btn btn-xs btn-danger"  %>
+    <% end %>
+    </div>
+
+<%# end %>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+<% end %>

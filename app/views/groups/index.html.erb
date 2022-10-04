@@ -1,0 +1,77 @@
+ <% if can?  :create, Group %>
+<%= link_to"New Group", new_user_group_path(current_user)%>
+
+<% end %>
+<div style=" display: flex; flex-wrap: wrap;">
+<% @group.each do |group| %>
+
+    <div style=" flex: 0 0 29.33%;margin: 20px; border: 2px black solid; justify-content: center;">
+    
+
+    <%= link_to group.name, user_group_path(current_user,group) %>
+    
+     <p style="margin-left:20px">
+    
+      
+     <% x=group.users.where(id: current_user.id)%>
+     
+    
+   
+     <% if current_user != x[0]%>
+
+       <%  if group.grouptype=='Public' %> 
+
+       <%= link_to "Join this group", user_group_join_path(current_user,group_id: group.id) %>
+       <% elsif group.grouptype=='Private' %>
+         <%= link_to "Join this private group", user_group_joingroup_path(current_user,group_id: group.id) %>
+       <% end %>
+    
+
+
+        <% else %>
+
+         <%  if group.grouptype=='Public' %>
+        You have already joined this group
+        <% elsif group.grouptype=='Private'  %>
+         <% user_group = UserGroup.find_by(user_id:current_user.id, group_id: group.id).request  %>
+          <% if user_group %>
+            You have already joined this group
+
+          <% else %>
+
+          Your Request is yet to be approved by Admin
+
+
+          <% end %>
+
+
+        <% end %>
+         
+
+
+
+       
+       <% end %>  </p>
+
+    
+
+    
+     
+     
+    
+    
+    <p style="margin-left:120px"> <%= group.name %>   </p>
+     <p style="margin-left:120px"> <%= group.grouptype %>   </p>
+    <p style="margin-left:120px"> <%= group.user.user_name %>   </p>
+     
+    <%= image_tag(group.image,style:"width:250px; height:250px") %>
+    
+    </div>
+
+  
+    
+    
+    
+    
+<% end %>
+</div>

@@ -1,0 +1,22 @@
+<% @group.users.each do |user| %>
+
+     <% user_group = UserGroup.find_by(user_id:user.id, group_id: @group.id).request  %>
+      
+      <% if !user_group %>
+         
+         <div style="display:flex; flex-direction:row">
+         <%= user.user_name%>
+         <p style="margin-left:20px" >   <%= link_to "Accept Request", user_group_accept_path(user_id: user.id,group_id: @group.id),data: { turbo_method: :get, turbo_confirm: "Are you sure?" }, class: "btn btn-xs btn-success" %> </p>
+          <p style="margin-left:20px" >  <%= link_to "Delete Request", user_group_delete_path(user_id: user.id,group_id: @group.id), class: "btn btn-xs btn-danger" %> </p>
+        </div>
+
+<% end %>
+
+
+</p>
+
+
+
+
+
+<% end %>

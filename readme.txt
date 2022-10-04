@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/48064675/activemodelmissingattributeerror-cant-write-unknown-attribute-user-id

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AlphaRails</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+   
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>  <%# this loads Sprockets/Rails asset pipeline %>
+    <%= javascript_importmap_tags %> <%#  this loads JS from importmaps %>
+
+  
+  </head>
+
+  <body>
+ 
+     <%  if current_user  %>
+   <%= render "layouts/navigation" %>
+    <%= current_user.user_name%>
+
+    <%# if current_user.image %>
+       <%#= image_tag(current_user.image ,style:"width:250px; height:250px" )   %>
+    <%# end %>
+
+
+    <% end %>
+    <% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+    <% end %>
+    <div class="container">
+    <%= yield %>
+    </div>
+  </body>
+</html>

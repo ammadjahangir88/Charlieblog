@@ -1,0 +1,19 @@
+<h2 align="center">Title: <%= obj.title %></h2>
+
+<div class="well col-xs-8 col-xs-offset-2">
+
+<h4 class="center description"><strong>Description:</strong></h4>
+
+<hr>
+
+<%= simple_format(obj.description) %>
+<div  style="width:250px; height:250px">
+
+<%=image_tag(obj.image ,style:"width:250px; height:250px" )  %>
+
+</div>
+
+</div>
+
+<%= render 'comments/comment', obj: obj.comments %>
+<%= render "comments/form", comment: @article.comments.build %>

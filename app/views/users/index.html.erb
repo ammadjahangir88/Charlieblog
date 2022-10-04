@@ -1,0 +1,41 @@
+
+
+<div align="center">
+
+<% @users.each do |user| %>
+
+<ul class="listing">
+
+<div class="row">
+
+<div class="well col-md-4 col-md-offset-4">
+
+<li class="article-title">
+
+<%= link_to user.user_name, user_changeplan_path(user) %>
+
+</li>
+
+<li> <%= user.userplan %> </li>
+<li><small><%= pluralize(user.groups.count, "Group")  if user.groups  %>  Joined</small></li>
+
+
+
+
+
+<li> <%= link_to "Delete this article", user_path(user), method: :delete,
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }  ,class: "btn btn-xs btn-danger"  %>  </li>
+
+
+
+
+</div>
+
+</div>
+
+</ul>
+
+
+<% end %>
+
+</div>

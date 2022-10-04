@@ -1,0 +1,15 @@
+<h1>Articles listed that are created in Groups </h1>
+<% if current_user == @group.user%>
+<%= link_to "Approve Members", user_group_approve_path(current_user,@group.id) %>
+<%= link_to "View All Members", user_group_view_path(current_user,@group.id) %>
+
+ <% end %>
+
+<% x=@group.users.where(id: current_user.id)%>
+
+ <% if current_user == x[0]%>
+<%= link_to "New Article", new_user_group_article_path(current_user,@group) %>
+
+<% end %>
+
+<%= render 'articles/article', obj: @group.articles %>
