@@ -5,10 +5,10 @@
 <div style=" display: flex; flex-wrap: wrap; flex-direction:row;">
 <% @group.each do |group| %>
 
-    <div style=" flex: 0 0 21.33%;margin: 20px; border: 2px black solid;display: flex; flex-direction:column; justify-content: center;align-items: center">
+    <div style=" flex: 0 0 20.33%;margin:20px; border: 1px black solid;display: flex; flex-direction:column; justify-content: center;align-items: center;border-radius:10px; padding-bottom:10px; padding-top:5px; background-color: #ebf2f7">
     
 
-    <%= link_to group.name, user_group_path(current_user,group) ,class: "G_Name" %>
+    <%= link_to group.name, user_group_path(current_user,group) ,class: "G_Name" %> 
     
      <p style="margin-left:20px">
     
@@ -24,20 +24,19 @@
      <% end%>
    
      <div>
-      <small>Group Created by  </small>  <b><%= group.user.user_name %> </b> 
+      <small>Created by  </small>  <b><%= group.user.user_name %> </b> 
 
        
      </div>
      <div>
-      <small>Group Type :   </small> <b> <%= group.grouptype %> </b>
+      <small>Type :   </small> <b> <%= group.grouptype %> </b>
 
       </div>
         <div >
-        <%= link_to "Show", user_group_path(current_user,group) , class: "btn btn-xs btn-success", style: "background-color:skyblue" %>
         
         <% x=group.users.where(id: current_user.id)%>
      
-    
+
    
      <% if current_user != x[0]%>
 
@@ -74,6 +73,9 @@
 
        
        <% end %>
+       <br>
+               <%= link_to "Show", user_group_path(current_user,group) , class: "btn btn-xs btn-success" %>
+
        </div>
     </div>
   
@@ -84,4 +86,5 @@
     
     
 <% end %>
+
 </div>

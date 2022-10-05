@@ -77,3 +77,5 @@ end
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "pundit"
