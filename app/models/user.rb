@@ -4,6 +4,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:login]
+
+
+  # devise :omniauthable, :database_authenticatable, :registerable,
+  #        :recoverable, :rememberable, :validatable, authentication_keys: [:login], omniauth_providers: [:google_oauth2]
   # validates :username, presence: true, uniqueness: { case_sensitive: false }
   # # app/models/user.rb
   has_many :articles
@@ -31,6 +35,18 @@ class User < ApplicationRecord
       where(conditions.to_h).where(["lower(user_name) = :value OR lower(email) = :value", { :value => login.downcase }]).first
     elsif conditions.has_key?(:username) || conditions.has_key?(:email)
       where(conditions.to_h).first
+    end
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.user_name = auth.info.name # assuming the user model has a name
+      user.image = auth.info.image # assuming the user model has an image
+      # If you are using confirmable and the provider(s) you use validate emails,
+      # uncomment the line below to skip the confirmation emails.
+      # user.skip_confirmation!
     end
   end
 end

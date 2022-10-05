@@ -1,3 +1,4 @@
+<div class="container">
 <h1>Articles listed that are created in Groups </h1>
 <% if current_user == @group.user%>
 <%= link_to "Approve Members", user_group_approve_path(current_user,@group.id) %>
@@ -13,3 +14,5 @@
 <% end %>
 
 <%= render 'articles/article', obj: @group.articles %>
+
+</div>

@@ -2,18 +2,40 @@
 <%= link_to"New Group", new_user_group_path(current_user)%>
 
 <% end %>
-<div style=" display: flex; flex-wrap: wrap;">
+<div style=" display: flex; flex-wrap: wrap; flex-direction:row;">
 <% @group.each do |group| %>
 
-    <div style=" flex: 0 0 29.33%;margin: 20px; border: 2px black solid; justify-content: center;">
+    <div style=" flex: 0 0 21.33%;margin: 20px; border: 2px black solid;display: flex; flex-direction:column; justify-content: center;align-items: center">
     
 
-    <%= link_to group.name, user_group_path(current_user,group) %>
+    <%= link_to group.name, user_group_path(current_user,group) ,class: "G_Name" %>
     
      <p style="margin-left:20px">
     
       
-     <% x=group.users.where(id: current_user.id)%>
+       </p>
+
+    
+
+    
+     
+     <% if group.id != 2 && group.id != 3 %>
+     <%= image_tag(group.image,style:"width:250px; height:250px; border-radius:6%") %>
+     <% end%>
+   
+     <div>
+      <small>Group Created by  </small>  <b><%= group.user.user_name %> </b> 
+
+       
+     </div>
+     <div>
+      <small>Group Type :   </small> <b> <%= group.grouptype %> </b>
+
+      </div>
+        <div >
+        <%= link_to "Show", user_group_path(current_user,group) , class: "btn btn-xs btn-success", style: "background-color:skyblue" %>
+        
+        <% x=group.users.where(id: current_user.id)%>
      
     
    
@@ -21,7 +43,7 @@
 
        <%  if group.grouptype=='Public' %> 
 
-       <%= link_to "Join this group", user_group_join_path(current_user,group_id: group.id) %>
+       <%= link_to "Join this group", user_group_join_path(current_user,group_id: group.id),data: { turbo_method: :get, turbo_confirm: "Are you sure?" } , class: "btn btn-xs btn-success", style: "background-color:green"%>
        <% elsif group.grouptype=='Private' %>
          <%= link_to "Join this private group", user_group_joingroup_path(current_user,group_id: group.id) %>
        <% end %>
@@ -31,42 +53,30 @@
         <% else %>
 
          <%  if group.grouptype=='Public' %>
-        You have already joined this group
+          Member
         <% elsif group.grouptype=='Private'  %>
          <% user_group = UserGroup.find_by(user_id:current_user.id, group_id: group.id).request  %>
           <% if user_group %>
-            You have already joined this group
+             Member
 
           <% else %>
 
-          Your Request is yet to be approved by Admin
+         Pending Request 
 
 
           <% end %>
 
-
+      
         <% end %>
          
 
 
 
        
-       <% end %>  </p>
-
-    
-
-    
-     
-     
-    
-    
-    <p style="margin-left:120px"> <%= group.name %>   </p>
-     <p style="margin-left:120px"> <%= group.grouptype %>   </p>
-    <p style="margin-left:120px"> <%= group.user.user_name %>   </p>
-     
-    <%= image_tag(group.image,style:"width:250px; height:250px") %>
-    
+       <% end %>
+       </div>
     </div>
+  
 
   
     

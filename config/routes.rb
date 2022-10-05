@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   get 'comments/new'
   get 'comments/index'
 
-  devise_for :users 
-
+  
+  devise_for :users
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
